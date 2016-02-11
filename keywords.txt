@@ -1,0 +1,22 @@
+#######################################
+# Syntax Coloring Map For PFFIAPUploadAgent
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+FIAPUploadAgent	KEYWORD1
+fiap_element	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+post	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
