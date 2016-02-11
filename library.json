@@ -4,15 +4,9 @@
   "keywords": "IEEE1888, FIAP, SOAP, HTTP",
   "description": "Implematation of IEEE1888(FIAP) (forked from official implementation)",
   "url": "https://github.com/PlantFactory/PFFIAPUploadAgent",
-  "authors":
-  [
-    {
-      "name": "Hiromasa Ihara"
-    }
-  ],
   "repository":
   {
     "type": "git",
-    "url": "https://github.com/PlantFactory/PFFIAPUploadAgent"
+    "url": "https://github.com/PlantFactory/PFFIAPUploadAgent.git"
   }
 }
