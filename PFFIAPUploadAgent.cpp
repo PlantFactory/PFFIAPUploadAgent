@@ -7,6 +7,7 @@
 //
 
 // --------- PFFIAPUploadAgent.cpp (begin) ---------
+#include <Arduino.h>
 #include <SPI.h>              // Ethernetシールド用
 #include <Ethernet.h>         // Ethernetシールド用
 #include <Client.h>           // TCPクライアント用
@@ -17,10 +18,10 @@
 // Initialize the FIAPUploadAgent instance
 //    with specifying server information and PointSetID (=PointID prefix)
 void FIAPUploadAgent::begin(
-    const char* server_host,
-    const char* server_path,
+    String server_host,
+    String server_path,
     unsigned short server_port,
-    const char* fiap_id_prefix){
+    String fiap_id_prefix){
 
   this->server_host=server_host;
   this->server_path=server_path;
@@ -77,7 +78,7 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
   EthernetClient client;
 
   // TCP接続開始
-  if (!client.connect(server_host, server_port)) {
+  if (!client.connect(server_host.c_str(), server_port)) {
     // TCP接続失敗
     return(FIAP_UPLOAD_CONNFAIL);
   }
@@ -87,7 +88,7 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
   v0 = v;
   clen = 320; // sum of literal strings
   for (count = 0; count < esize; count++) {
-    clen += strlen(fiap_id_prefix);
+    clen += strlen(fiap_id_prefix.c_str());
     clen += strlen(v0->cid);
     clen += strlen(v0->value); // + 3;
     clen += 75;
@@ -100,7 +101,7 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
   // send HTTP header
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPHEADER01);
   client.print(sbuf);  // "POST "
-  client.print(server_path); 
+  client.print(server_path.c_str()); 
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPHEADER02);
   client.println(sbuf); // " HTTP/1.1"
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPHEADER03);
@@ -109,7 +110,7 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
   client.println(sbuf); // "User-Agent: PFFIAPUploadAgent (Arduino HCU)"
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPHEADER05);
   client.print(sbuf); // "Host: "
-  client.println(server_host);
+  client.println(server_host.c_str());
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPHEADER06);
   client.println(sbuf); // "SOAPAction: \"http://soap.fiap.org/data\""
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPHEADER07);
@@ -138,7 +139,7 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
   for (count = 0; count < esize; count++) {
     strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY10);
     client.print(sbuf); // "<point id=\""
-    client.print(fiap_id_prefix); client.print(v0->cid); 
+    client.print(fiap_id_prefix.c_str()); client.print(v0->cid); 
     strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY11);
     client.println(sbuf); // "\">"
 

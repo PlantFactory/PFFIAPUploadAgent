@@ -13,6 +13,8 @@
 #define FIAP_UPLOAD_HTTPERR  3  // HTTP Server error (The response was not "200 OK")
 #define FIAP_UPLOAD_FIAPERR  4  // FIAP Server error
 
+#include <Arduino.h>
+
 // point element
 struct fiap_element {
   const char* cid;       // ポイントIDのポストフィックス
@@ -30,20 +32,20 @@ struct fiap_element {
 class FIAPUploadAgent {
 public: 
   void begin(
-             const char* server_host,
-             const char* server_path,
+             String server_host,
+             String server_path,
              unsigned short server_port,
-             const char* fiap_id_prefix);
+             String fiap_id_prefix);
   int post(struct fiap_element* v, byte esize);
   
 private:
   char *element_time_to_str(struct fiap_element* e);
   
 private: 
-  const char* server_host;
-  const char* server_path;
+  String server_host;
+  String server_path;
   unsigned short server_port;
-  const char* fiap_id_prefix;
+  String fiap_id_prefix;
 };
 
 #endif  // #ifndef FIAPUploadAgent
