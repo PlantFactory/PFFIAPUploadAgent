@@ -17,31 +17,31 @@
 
 // point element
 struct fiap_element {
-  const char* cid;       // ƒ|ƒCƒ“ƒgID‚Ìƒ|ƒXƒgƒtƒBƒbƒNƒX
-  char* value;           // ’l(•¶š—ñ)
-  unsigned short year;         // ”N
-  byte month;         // Œ 1 - 12
-  byte day;           // “ú 1 - 31
-  byte hour;          //  0 - 23
-  byte minute;        // •ª 0 - 59
-  byte second;        // •b 0 - 59
-  char* timezone;        // ƒ^ƒCƒ€ƒ][ƒ“•\‹L "+09:00"
+  const char* cid;       // ãƒã‚¤ãƒ³ãƒˆIDã®ãƒã‚¹ãƒˆãƒ•ã‚£ãƒƒã‚¯ã‚¹
+  char* value;           // å€¤(æ–‡å­—åˆ—)
+  unsigned short year;         // å¹´
+  byte month;         // æœˆ 1 - 12
+  byte day;           // æ—¥ 1 - 31
+  byte hour;          // æ™‚ 0 - 23
+  byte minute;        // åˆ† 0 - 59
+  byte second;        // ç§’ 0 - 59
+  char* timezone;        // ã‚¿ã‚¤ãƒ ã‚¾ãƒ¼ãƒ³è¡¨è¨˜ "+09:00"
 };
 
 // class definition
 class FIAPUploadAgent {
-public: 
+public:
   void begin(
              String server_host,
              String server_path,
              unsigned short server_port,
              String fiap_id_prefix);
   int post(struct fiap_element* v, byte esize);
-  
+
 private:
   char *element_time_to_str(struct fiap_element* e);
-  
-private: 
+
+private:
   String server_host;
   String server_path;
   unsigned short server_port;

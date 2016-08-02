@@ -8,9 +8,9 @@
 
 // --------- PFFIAPUploadAgent.cpp (begin) ---------
 #include <Arduino.h>
-#include <SPI.h>              // EthernetƒV[ƒ‹ƒh—p
-#include <Ethernet.h>         // EthernetƒV[ƒ‹ƒh—p
-#include <Client.h>           // TCPƒNƒ‰ƒCƒAƒ“ƒg—p
+#include <SPI.h>              // Ethernetã‚·ãƒ¼ãƒ«ãƒ‰ç”¨
+#include <Ethernet.h>         // Ethernetã‚·ãƒ¼ãƒ«ãƒ‰ç”¨
+#include <Client.h>           // TCPã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆç”¨
 #include <avr/pgmspace.h>     // Retrieve Strings from the Program Memory
 #include "PFFIAPUploadAgent.h"
 
@@ -77,14 +77,14 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
 
   EthernetClient client;
 
-  // TCPÚ‘±ŠJn
+  // TCPæ¥ç¶šé–‹å§‹
   if (!client.connect(server_host.c_str(), server_port)) {
-    // TCPÚ‘±¸”s
+    // TCPæ¥ç¶šå¤±æ•—
     return(FIAP_UPLOAD_CONNFAIL);
   }
 
-  // TCPÚ‘±¬Œ÷
-  // ƒRƒ“ƒeƒ“ƒcƒTƒCƒYŒvZ
+  // TCPæ¥ç¶šæˆåŠŸ
+  // ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ã‚µã‚¤ã‚ºè¨ˆç®—
   v0 = v;
   clen = 320; // sum of literal strings
   for (count = 0; count < esize; count++) {
@@ -101,7 +101,7 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
   // send HTTP header
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPHEADER01);
   client.print(sbuf);  // "POST "
-  client.print(server_path.c_str()); 
+  client.print(server_path.c_str());
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPHEADER02);
   client.println(sbuf); // " HTTP/1.1"
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPHEADER03);
@@ -139,16 +139,16 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
   for (count = 0; count < esize; count++) {
     strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY10);
     client.print(sbuf); // "<point id=\""
-    client.print(fiap_id_prefix.c_str()); client.print(v0->cid); 
+    client.print(fiap_id_prefix.c_str()); client.print(v0->cid);
     strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY11);
     client.println(sbuf); // "\">"
 
     strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY12);
     client.print(sbuf); // "<value time=\""
-    client.print(element_time_to_str(v0)); 
+    client.print(element_time_to_str(v0));
     strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY13);
     client.print(sbuf); // "\">"
-    client.print(v0->value); 
+    client.print(v0->value);
 
     strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY14);
     client.println(sbuf); // "</value>"
@@ -179,11 +179,11 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
         rescode = rescode * 10 + (c - '0');
         continue;
       }
-      if (c == ' ') {  // ‰“šƒR[ƒh‚ÌØ‚ê–ÚŒŸo
+      if (c == ' ') {  // å¿œç­”ã‚³ãƒ¼ãƒ‰ã®åˆ‡ã‚Œç›®æ¤œå‡º
         count++;
       }
       if (count == 2 || c == '\n') {  // end of HTTP response code
-        break;    // ‰“šƒwƒbƒ_‚Ì2s–ÚˆÈ~‚ÍŒ©‚È‚¢
+        break;    // å¿œç­”ãƒ˜ãƒƒãƒ€ã®2è¡Œç›®ä»¥é™ã¯è¦‹ãªã„
       }
     }
   }
@@ -194,7 +194,7 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
 
   // disconnect HTTP
   while (client.connected() && client.available()) {
-    c = client.read(); // Serial.print(c);  // ‰“š‚ğÅŒã‚Ü‚ÅóM
+    c = client.read(); // Serial.print(c);  // å¿œç­”ã‚’æœ€å¾Œã¾ã§å—ä¿¡
   }
   client.stop();
   if (rescode == 200) {
@@ -207,10 +207,10 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
 PROGMEM const char FIAPUploadAgent_Post_TimeFormat[] = "%04d-%02d-%02dT%02d:%02d:%02d%s\0";
 
 // [private method] char* FIAPUploadAgent::element_time_to_str(struct fiap_element* e);
-// struct fiap_element ‚Éw’è‚³‚ê‚½‚©‚ç "2011-08-26T10:28:00+00:00" ‚Ì•\‹L‚ğ“¾‚é
+// struct fiap_element ã«æŒ‡å®šã•ã‚ŒãŸæ™‚åˆ»ã‹ã‚‰ "2011-08-26T10:28:00+00:00" ã®è¡¨è¨˜ã‚’å¾—ã‚‹
 char* FIAPUploadAgent::element_time_to_str(struct fiap_element* e)
-{ 
-  static char fiap_time[28]; 
+{
+  static char fiap_time[28];
   char str_timeformat[35];
   strcpy_P(str_timeformat,FIAPUploadAgent_Post_TimeFormat);
   sprintf(fiap_time,str_timeformat,e->year,e->month,e->day,e->hour,e->minute,e->second,e->timezone);
