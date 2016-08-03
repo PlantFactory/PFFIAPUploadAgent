@@ -2,31 +2,31 @@
 
 This library is forked from FIAPUploadAgent for use plantfactory project.
 
-Arduino—p‚ÌIEEE1888ƒ‰ƒCƒuƒ‰ƒŠ FIAPUploadAgent ‚ÍˆÈ‰º‚Ìƒtƒ@ƒCƒ‹‚©‚ç‚È‚Á‚Ä‚¢‚Ü‚·B
+Arduinoç”¨ã®IEEE1888ãƒ©ã‚¤ãƒ–ãƒ©ãƒª FIAPUploadAgent ã¯ä»¥ä¸‹ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ãªã£ã¦ã„ã¾ã™ã€‚
 
 FIAPUploadAgent
  +-- examples
- |    +-- FIAPsensorsAPIHowto 
- |    |    ^-- FIAPsensorsAPIHowto.ino   c IEEE1888ƒ‰ƒCƒuƒ‰ƒŠ‚ÌŠÈ’P‚ÈƒTƒ“ƒvƒ‹
+ |    +-- FIAPsensorsAPIHowto
+ |    |    ^-- FIAPsensorsAPIHowto.ino   â€¦ IEEE1888ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ç°¡å˜ãªã‚µãƒ³ãƒ—ãƒ«
  |    +-- FIAPsensorsCLI
- |         ^-- FIAPsensorsCLI.ino   c ŠwKƒLƒbƒg‚ÌƒZƒ“ƒTƒf[ƒ^‚ğƒT[ƒo‚É‘—M‚·‚éƒTƒ“ƒvƒ‹iCLI”Åj
- +-- FIAPUploadAgent.cpp    c IEEE1888ƒ‰ƒCƒuƒ‰ƒŠ‚Ì–{‘Ì
- +-- FIAPUploadAgent.h      c ‚»‚Ìƒwƒbƒ_ƒtƒ@ƒCƒ‹
+ |         ^-- FIAPsensorsCLI.ino   â€¦ å­¦ç¿’ã‚­ãƒƒãƒˆã®ã‚»ãƒ³ã‚µãƒ‡ãƒ¼ã‚¿ã‚’ã‚µãƒ¼ãƒã«é€ä¿¡ã™ã‚‹ã‚µãƒ³ãƒ—ãƒ«ï¼ˆCLIç‰ˆï¼‰
+ +-- FIAPUploadAgent.cpp    â€¦ IEEE1888ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®æœ¬ä½“
+ +-- FIAPUploadAgent.h      â€¦ ãã®ãƒ˜ãƒƒãƒ€ãƒ•ã‚¡ã‚¤ãƒ«
  +-- keywords.txt
  +-- readme.txt
 
-¦Às‚É‚ÍAŸ‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚ğƒ_ƒEƒ“ƒ[ƒh‚µAArduino‚ÌlibrariesƒfƒBƒŒƒNƒgƒŠ‚É”z’u‚µ‚Ä‚­‚¾‚³‚¢B
+â€»å®Ÿè¡Œæ™‚ã«ã¯ã€æ¬¡ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã€Arduinoã®librariesãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«é…ç½®ã—ã¦ãã ã•ã„ã€‚
 
-ETimeƒ‰ƒCƒuƒ‰ƒŠ
-@@http://www.arduino.cc/playground/Code/Time
+ãƒ»Timeãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+ã€€ã€€http://www.arduino.cc/playground/Code/Time
 
-¦“®ìƒeƒXƒg—pƒT[ƒo
+â€»å‹•ä½œãƒ†ã‚¹ãƒˆç”¨ã‚µãƒ¼ãƒ
 
-EƒAƒbƒvƒ[ƒh‚³‚ê‚½ƒf[ƒ^‚Ì‰{——
-@@http://fiap-sandbox.gutp.ic.i.u-tokyo.ac.jp/
-EIEEE1888’ÊMURL
-@@http://fiap-sandbox.gutp.ic.i.u-tokyo.ac.jp/axis2/services/FIAPStorage
+ãƒ»ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ã®é–²è¦§
+ã€€ã€€http://fiap-sandbox.gutp.ic.i.u-tokyo.ac.jp/
+ãƒ»IEEE1888é€šä¿¡URL
+ã€€ã€€http://fiap-sandbox.gutp.ic.i.u-tokyo.ac.jp/axis2/services/FIAPStorage
 
-¦IEEE1888ƒT[ƒo‚Ì“üè•û–@
+â€»IEEE1888ã‚µãƒ¼ãƒã®å…¥æ‰‹æ–¹æ³•
 
-@http://gutp.jp/fiap/kit.html
+ã€€http://gutp.jp/fiap/kit.html
