@@ -7,12 +7,27 @@
 //
 
 // --------- PFFIAPUploadAgent.cpp (begin) ---------
-#include <Arduino.h>
-#include <SPI.h>              // Ethernetシールド用
-#include <Ethernet.h>         // Ethernetシールド用
-#include <Client.h>           // TCPクライアント用
-#include <avr/pgmspace.h>     // Retrieve Strings from the Program Memory
 #include "PFFIAPUploadAgent.h"
+#include <Arduino.h>
+
+#ifndef ESP8266
+#include <SPI.h>
+#include <Ethernet.h>
+#else
+#include <ESP8266WiFi.h>
+#endif
+
+#include <Client.h>           // TCPクライアント用
+#ifdef __AVR__
+#include <avr/pgmspace.h>
+#endif
+
+#define DEBUG 0
+
+#if DEBUG
+#define print(a) print(a);Serial.print(a)
+#define println(a) println(a);Serial.println(a)
+#endif
 
 // void void FIAPUploadAgent::begin( ... );
 // Initialize the FIAPUploadAgent instance
@@ -75,7 +90,11 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
   char count;
   unsigned char c;
 
+#ifndef ESP8266
   EthernetClient client;
+#else
+  WiFiClient client;
+#endif
 
   // TCP接続開始
   if (!client.connect(server_host.c_str(), server_port)) {
@@ -174,7 +193,10 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
   while (client.connected()) {
     // Serial.print("C");
     if (client.available()) {
-      c = client.read();  // Serial.print(c);
+      c = client.read();
+#if DEBUG
+      Serial.write((char)c);
+#endif
       if (count == 1 && (c >= '0' && c <= '9')) {  // parse HTTP response code
         rescode = rescode * 10 + (c - '0');
         continue;
@@ -194,7 +216,10 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
 
   // disconnect HTTP
   while (client.connected() && client.available()) {
-    c = client.read(); // Serial.print(c);  // 応答を最後まで受信
+    c = client.read(); // 応答を最後まで受信
+#if DEBUG
+    Serial.write((char)c);
+#endif
   }
   client.stop();
   if (rescode == 200) {
