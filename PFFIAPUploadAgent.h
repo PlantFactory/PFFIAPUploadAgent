@@ -14,17 +14,13 @@
 #define FIAP_UPLOAD_FIAPERR  4  // FIAP Server error
 
 #include <Arduino.h>
+#include "TimeLib.h"
 
 // point element
 struct fiap_element {
   const char* cid;       // ポイントIDのポストフィックス
   char* value;           // 値(文字列)
-  unsigned short year;         // 年
-  byte month;         // 月 1 - 12
-  byte day;           // 日 1 - 31
-  byte hour;          // 時 0 - 23
-  byte minute;        // 分 0 - 59
-  byte second;        // 秒 0 - 59
+  time_t time;
   char* timezone;        // タイムゾーン表記 "+09:00"
 };
 

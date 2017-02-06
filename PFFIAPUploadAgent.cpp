@@ -13,6 +13,7 @@
 #include <Client.h>           // TCPクライアント用
 #include <avr/pgmspace.h>     // Retrieve Strings from the Program Memory
 #include "PFFIAPUploadAgent.h"
+#include "TimeLib.h"
 
 // void void FIAPUploadAgent::begin( ... );
 // Initialize the FIAPUploadAgent instance
@@ -203,17 +204,21 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
   return(FIAP_UPLOAD_HTTPERR);
 }
 
-// Messages (Stored in the program memory) -- Time Format Part
 PROGMEM const char FIAPUploadAgent_Post_TimeFormat[] = "%04d-%02d-%02dT%02d:%02d:%02d%s\0";
 
 // [private method] char* FIAPUploadAgent::element_time_to_str(struct fiap_element* e);
 // struct fiap_element に指定された時刻から "2011-08-26T10:28:00+00:00" の表記を得る
 char* FIAPUploadAgent::element_time_to_str(struct fiap_element* e)
 {
+  TimeElements tm;
+
   static char fiap_time[28];
-  char str_timeformat[35];
+  char str_timeformat[33];
+
+  breakTime(e->time, tm);
   strcpy_P(str_timeformat,FIAPUploadAgent_Post_TimeFormat);
-  sprintf(fiap_time,str_timeformat,e->year,e->month,e->day,e->hour,e->minute,e->second,e->timezone);
+  sprintf(fiap_time, str_timeformat, tm.Year, tm.Month, tm.Day, tm.Hour, tm.Minute, tm.Second, e->timezone);
+
   return fiap_time;
 }
 // --------- PFFIAPUploadAgent.cpp (end) ---------
