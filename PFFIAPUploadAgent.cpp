@@ -18,10 +18,10 @@
 // Initialize the FIAPUploadAgent instance
 //    with specifying server information and PointSetID (=PointID prefix)
 void FIAPUploadAgent::begin(
-    String server_host,
-    String server_path,
-    unsigned short server_port,
-    String fiap_id_prefix){
+  String server_host,
+  String server_path,
+  unsigned short server_port,
+  String fiap_id_prefix) {
 
   this->server_host=server_host;
   this->server_path=server_path;

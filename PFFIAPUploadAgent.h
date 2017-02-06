@@ -32,10 +32,10 @@ struct fiap_element {
 class FIAPUploadAgent {
 public:
   void begin(
-             String server_host,
-             String server_path,
-             unsigned short server_port,
-             String fiap_id_prefix);
+    String server_host,
+    String server_path,
+    unsigned short server_port,
+    String fiap_id_prefix);
   int post(struct fiap_element* v, byte esize);
 
 private:
