@@ -14,6 +14,7 @@
 #include <avr/pgmspace.h>     // Retrieve Strings from the Program Memory
 #include "PFFIAPUploadAgent.h"
 #include "TimeLib.h"
+#include "LocalTimeLib.h"
 
 // void void FIAPUploadAgent::begin( ... );
 // Initialize the FIAPUploadAgent instance
@@ -210,14 +211,14 @@ PROGMEM const char FIAPUploadAgent_Post_TimeFormat[] = "%04d-%02d-%02dT%02d:%02d
 // struct fiap_element に指定された時刻から "2011-08-26T10:28:00+00:00" の表記を得る
 char* FIAPUploadAgent::element_time_to_str(struct fiap_element* e)
 {
-  TimeElements tm;
+  TimeElements* tm;
 
   static char fiap_time[28];
   char str_timeformat[33];
 
-  breakTime(e->time, tm);
+  tm = localtime(e->time);
   strcpy_P(str_timeformat,FIAPUploadAgent_Post_TimeFormat);
-  sprintf(fiap_time, str_timeformat, tm.Year, tm.Month, tm.Day, tm.Hour, tm.Minute, tm.Second, e->timezone);
+  sprintf(fiap_time, str_timeformat, tm->Year + 1970, tm->Month, tm->Day, tm->Hour, tm->Minute, tm->Second, e->timezone->iso_string);
 
   return fiap_time;
 }

@@ -15,13 +15,14 @@
 
 #include <Arduino.h>
 #include "TimeLib.h"
+#include "LocalTimeLib.h"
 
 // point element
 struct fiap_element {
   const char* cid;       // ポイントIDのポストフィックス
   char* value;           // 値(文字列)
   time_t time;
-  char* timezone;        // タイムゾーン表記 "+09:00"
+  TimeZone* timezone;        // タイムゾーン
 };
 
 // class definition
