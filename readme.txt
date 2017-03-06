@@ -19,6 +19,9 @@ FIAPUploadAgent
 
 ・Timeライブラリ
 　　http://www.arduino.cc/playground/Code/Time
+・LocalTimeライブラリ
+　　https://github.com/PlantFactory/LocalTimeLib
+
 
 ※動作テスト用サーバ
 

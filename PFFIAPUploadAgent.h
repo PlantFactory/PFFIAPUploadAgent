@@ -14,28 +14,25 @@
 #define FIAP_UPLOAD_FIAPERR  4  // FIAP Server error
 
 #include <Arduino.h>
+#include "TimeLib.h"
+#include "LocalTimeLib.h"
 
 // point element
 struct fiap_element {
   const char* cid;       // ポイントIDのポストフィックス
   char* value;           // 値(文字列)
-  unsigned short year;         // 年
-  byte month;         // 月 1 - 12
-  byte day;           // 日 1 - 31
-  byte hour;          // 時 0 - 23
-  byte minute;        // 分 0 - 59
-  byte second;        // 秒 0 - 59
-  char* timezone;        // タイムゾーン表記 "+09:00"
+  time_t time;
+  TimeZone* timezone;        // タイムゾーン
 };
 
 // class definition
 class FIAPUploadAgent {
 public:
   void begin(
-             String server_host,
-             String server_path,
-             unsigned short server_port,
-             String fiap_id_prefix);
+    String server_host,
+    String server_path,
+    unsigned short server_port,
+    String fiap_id_prefix);
   int post(struct fiap_element* v, byte esize);
 
 private:
