@@ -6,12 +6,15 @@
 #ifndef __FIAPUploadAgent__
 #define __FIAPUploadAgent__
 
+#define FIAP_RESPONSE_TIMEOUT 500000 // 500ms
+
 // return code of post method
 #define FIAP_UPLOAD_OK       0  // Succeeded
 #define FIAP_UPLOAD_CONNFAIL 1  // Connection faild (Socket I/O error)
 #define FIAP_UPLOAD_DNSERR   2  // DNS error
 #define FIAP_UPLOAD_HTTPERR  3  // HTTP Server error (The response was not "200 OK")
 #define FIAP_UPLOAD_FIAPERR  4  // FIAP Server error
+#define FIAP_UPLOAD_HTTPTOERR 5  // HTTP Timeout error
 
 #include <Arduino.h>
 #include "TimeLib.h"

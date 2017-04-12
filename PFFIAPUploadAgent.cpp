@@ -75,6 +75,7 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
   int clen = 0;     // content length
   struct fiap_element *v0;
   char count;
+  unsigned int receive_loop_count;
   unsigned char c;
 
   EthernetClient client;
@@ -173,6 +174,7 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
 
   // parse HTTP response
   count = 0;
+  receive_loop_count = 0;
   while (client.connected()) {
     // Serial.print("C");
     if (client.available()) {
@@ -188,6 +190,12 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
         break;    // 応答ヘッダの2行目以降は見ない
       }
     }
+    receive_loop_count++;
+    if(receive_loop_count >= FIAP_RESPONSE_TIMEOUT) {
+      client.stop();
+      return(FIAP_UPLOAD_HTTPTOERR);
+    }
+    delayMicroseconds(1);
   }
   if (!client.connected()) {  // unexpected disconnect
     client.stop();
