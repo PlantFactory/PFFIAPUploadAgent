@@ -177,7 +177,7 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
     // Serial.print("C");
     if (client.available()) {
       c = client.read();  // Serial.print(c);
-      if (count == 1 && (c >= '0' && c <= '9')) {  // parse HTTP response code
+      if (count == 1 && isDigit(c)) {  // parse HTTP response code
         rescode = rescode * 10 + (c - '0');
         continue;
       }
