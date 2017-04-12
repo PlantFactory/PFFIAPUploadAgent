@@ -88,12 +88,12 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
   // TCP接続成功
   // コンテンツサイズ計算
   v0 = v;
-  clen = 320; // sum of literal strings
+  clen = 294; // sum of literal strings
   for (count = 0; count < esize; count++) {
     clen += strlen(fiap_id_prefix.c_str());
     clen += strlen(v0->cid);
-    clen += strlen(v0->value); // + 3;
-    clen += 75;
+    clen += strlen(v0->value);
+    clen += 44;
     v0++;
   } // Serial.print("len="); Serial.println(clen);
 
@@ -122,19 +122,19 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
 
   // send HTTP body
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY01);
-  client.println(sbuf); // "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+  client.print(sbuf); // "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY02);
   client.print(sbuf); // "<soapenv:Envelope xmlns:soapenv="
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY03);
-  client.println(sbuf); // "\"http://schemas.xmlsoap.org/soap/envelope/\">"
+  client.print(sbuf); // "\"http://schemas.xmlsoap.org/soap/envelope/\">"
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY04);
-  client.println(sbuf); // "<soapenv:Body>"
+  client.print(sbuf); // "<soapenv:Body>"
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY05);
-  client.println(sbuf); // "<ns2:dataRQ xmlns:ns2=\"http://soap.fiap.org/\">"
+  client.print(sbuf); // "<ns2:dataRQ xmlns:ns2=\"http://soap.fiap.org/\">"
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY06);
-  client.println(sbuf); // "<transport xmlns=\"http://gutp.jp/fiap/2009/11/\">"
+  client.print(sbuf); // "<transport xmlns=\"http://gutp.jp/fiap/2009/11/\">"
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY07);
-  client.println(sbuf); // "<body>"
+  client.print(sbuf); // "<body>"
 
 
   v0=v;
@@ -143,7 +143,7 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
     client.print(sbuf); // "<point id=\""
     client.print(fiap_id_prefix.c_str()); client.print(v0->cid);
     strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY11);
-    client.println(sbuf); // "\">"
+    client.print(sbuf); // "\">"
 
     strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY12);
     client.print(sbuf); // "<value time=\""
@@ -153,23 +153,23 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
     client.print(v0->value);
 
     strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY14);
-    client.println(sbuf); // "</value>"
+    client.print(sbuf); // "</value>"
 
     strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY15);
-    client.println(sbuf); // "</point>"
+    client.print(sbuf); // "</point>"
     v0++;
   }
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY17);
-  client.println(sbuf); // "</body>"
+  client.print(sbuf); // "</body>"
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY18);
-  client.println(sbuf); // "</transport>"
+  client.print(sbuf); // "</transport>"
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY19);
-  client.println(sbuf); // "</ns2:dataRQ>"
+  client.print(sbuf); // "</ns2:dataRQ>"
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY20);
-  client.println(sbuf); // "</soapenv:Body>"
+  client.print(sbuf); // "</soapenv:Body>"
   strcpy_P(sbuf,FIAPUploadAgent_Post_HTTPBODY21);
-  client.println(sbuf); // "</soapenv:Envelope>"
-  client.println();
+  client.print(sbuf); // "</soapenv:Envelope>"
+  // client.println();
 
   // parse HTTP response
   count = 0;
