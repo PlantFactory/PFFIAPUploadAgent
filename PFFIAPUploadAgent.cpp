@@ -93,7 +93,7 @@ int FIAPUploadAgent::post(struct fiap_element* v, byte esize){
     clen += strlen(fiap_id_prefix.c_str());
     clen += strlen(v0->cid);
     clen += strlen(v0->value);
-    clen += 44;
+    clen += 69;
     v0++;
   } // Serial.print("len="); Serial.println(clen);
 
